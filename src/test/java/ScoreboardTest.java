@@ -65,4 +65,15 @@ class ScoreboardTest {
         assertEquals( 0, match.getHomeTeam().getScore() );
         assertEquals( 5, match.getAwayTeam().getScore() );
     }
+
+    @DisplayName( "finish match" )
+    @Test
+    void testFinishMatch() {
+        Scoreboard scoreboard = new Scoreboard();
+        Team home = new Team( "Mexico" );
+        Team away = new Team( "Canada" );
+        scoreboard.startNewMatch( home, away );
+        scoreboard.finishMatch( home, away );
+        assertFalse( scoreboard.getMatches().isEmpty() );
+    }
 }

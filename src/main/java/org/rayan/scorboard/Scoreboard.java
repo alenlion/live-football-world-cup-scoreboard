@@ -14,20 +14,20 @@ import java.util.List;
  */
 
 public class Scoreboard {
-    private final List<Match> matches;
+    private final List<WorldCupFootballMatch> worldCupFootballMatches;
 
     public Scoreboard() {
-        this.matches = new ArrayList<>();
+        this.worldCupFootballMatches = new ArrayList<>();
     }
 
     private void checkTeamValidToPlay( Team homeTeam, Team awayTeam ) {
-        Match match = new Match( homeTeam, awayTeam );
-        if ( matches.contains( match ) ) {
+        WorldCupFootballMatch worldCupFootballMatch = new WorldCupFootballMatch( homeTeam, awayTeam );
+        if ( worldCupFootballMatches.contains( worldCupFootballMatch ) ) {
             throw new MatchAlreadyExistsException(
                     "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") this match already on progress."
             );
         }
-        for ( Match m : matches ) {
+        for ( WorldCupFootballMatch m : worldCupFootballMatches ) {
             if ( m.getHomeTeam().equals( homeTeam ) ||
                     m.getHomeTeam().equals( awayTeam ) ) {
                 throw new TeamAlreadyPlayException(
@@ -46,35 +46,35 @@ public class Scoreboard {
     public void startNewMatch( Team homeTeam, Team awayTeam ) {
         checkTeamValidToPlay( homeTeam, awayTeam );
 
-        matches.add( new Match( homeTeam, awayTeam ) );
+        worldCupFootballMatches.add( new WorldCupFootballMatch( homeTeam, awayTeam ) );
     }
 
-    public List<Match> getMatches() {
-        return matches;
+    public List<WorldCupFootballMatch> getMatches() {
+        return worldCupFootballMatches;
     }
 
     public void updateMatch( Team homeTeam, Team awayTeam ) {
-        Match match = findMatchByHomeAndAwayTeam( homeTeam, awayTeam );
-        match.getHomeTeam().setScore( homeTeam.getScore() );
-        match.getAwayTeam().setScore( awayTeam.getScore() );
+        WorldCupFootballMatch worldCupFootballMatch = findMatchByHomeAndAwayTeam( homeTeam, awayTeam );
+        worldCupFootballMatch.getHomeTeam().setScore( homeTeam.getScore() );
+        worldCupFootballMatch.getAwayTeam().setScore( awayTeam.getScore() );
     }
 
     public void finishMatch( Team homeTeam, Team awayTeam ) {
-        matches.removeIf( match -> match.getHomeTeam().equals( homeTeam ) && match.getAwayTeam().equals( awayTeam ) );
+        worldCupFootballMatches.removeIf( worldCupFootballMatch -> worldCupFootballMatch.getHomeTeam().equals( homeTeam ) && worldCupFootballMatch.getAwayTeam().equals( awayTeam ) );
     }
 
-    public Match findMatchByHomeAndAwayTeam( Team homeTeam, Team awayTeam ) {
-        for ( Match match : matches ) {
-            if ( match.getHomeTeam().equals( homeTeam ) && match.getAwayTeam().equals( awayTeam ) ) {
-                return match;
+    public WorldCupFootballMatch findMatchByHomeAndAwayTeam( Team homeTeam, Team awayTeam ) {
+        for ( WorldCupFootballMatch worldCupFootballMatch : worldCupFootballMatches ) {
+            if ( worldCupFootballMatch.getHomeTeam().equals( homeTeam ) && worldCupFootballMatch.getAwayTeam().equals( awayTeam ) ) {
+                return worldCupFootballMatch;
             }
         }
         throw new MatchNotInScoreboardException( "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") match not found." );
     }
 
-    public List<Match> getSummaryOfMatches() {
-        List<Match> summaryOfMatches = new ArrayList<>( matches.stream().sorted().toList() );
-        Collections.reverse( summaryOfMatches );
-        return summaryOfMatches;
+    public List<WorldCupFootballMatch> getSummaryOfMatches() {
+        List<WorldCupFootballMatch> summaryOfWorldCupFootballMatches = new ArrayList<>( worldCupFootballMatches.stream().sorted().toList() );
+        Collections.reverse( summaryOfWorldCupFootballMatches );
+        return summaryOfWorldCupFootballMatches;
     }
 }

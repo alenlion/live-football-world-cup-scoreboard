@@ -8,7 +8,7 @@ import java.util.Objects;
  * @since 6/17/2024
  */
 
-public class WorldCupFootballMatch implements Comparable<WorldCupFootballMatch> {
+public class WorldCupFootballMatch implements Match, Comparable<WorldCupFootballMatch> {
 
     public WorldCupFootballMatch( Team homeTeam, Team awayTeam ) {
         this.homeTeam = homeTeam;
@@ -26,6 +26,10 @@ public class WorldCupFootballMatch implements Comparable<WorldCupFootballMatch> 
 
     private final Team homeTeam;
     private final Team awayTeam;
+
+    public LocalDateTime getMatchStartTime() {
+        return matchStartTime;
+    }
 
     private final LocalDateTime matchStartTime;
 
@@ -48,10 +52,10 @@ public class WorldCupFootballMatch implements Comparable<WorldCupFootballMatch> 
     public int compareTo( WorldCupFootballMatch o ) {
         int thisTotalScore = this.homeTeam.getScore() + this.awayTeam.getScore();
         int otherTotalScore = o.getHomeTeam().getScore() + o.getAwayTeam().getScore();
-        if (thisTotalScore != otherTotalScore) {
-            return Integer.compare(thisTotalScore, otherTotalScore);
+        if ( thisTotalScore != otherTotalScore ) {
+            return Integer.compare( thisTotalScore, otherTotalScore );
         } else {
-            return this.matchStartTime.compareTo(o.matchStartTime);
+            return this.getMatchStartTime().compareTo( o.getMatchStartTime() );
         }
     }
 }

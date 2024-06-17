@@ -66,9 +66,9 @@ class ScoreboardTest {
         home.setScore( 0 );
         away.setScore( 5 );
         scoreboard.updateMatch( home, away );
-        Match match = scoreboard.findMatchByHomeAndAwayTeam( home, away );
-        assertEquals( 0, match.getHomeTeam().getScore() );
-        assertEquals( 5, match.getAwayTeam().getScore() );
+        WorldCupFootballMatch worldCupFootballMatch = scoreboard.findMatchByHomeAndAwayTeam( home, away );
+        assertEquals( 0, worldCupFootballMatch.getHomeTeam().getScore() );
+        assertEquals( 5, worldCupFootballMatch.getAwayTeam().getScore() );
     }
 
     @DisplayName( "update match with negative score." )
@@ -132,12 +132,12 @@ class ScoreboardTest {
         away5.setScore( 1 );
         scoreboard.updateMatch( home5, away5 );
 
-        List<Match> summaryOfMatches = scoreboard.getSummaryOfMatches();
-        assertFalse( summaryOfMatches.isEmpty() );
-        assertEquals( new Match( home4, away4 ), summaryOfMatches.get( 0 ) );
-        assertEquals( new Match( home2, away2 ), summaryOfMatches.get( 1 ) );
-        assertEquals( new Match( home1, away1 ), summaryOfMatches.get( 2 ) );
-        assertEquals( new Match( home5, away5 ), summaryOfMatches.get( 3 ) );
-        assertEquals( new Match( home3, away3 ), summaryOfMatches.get( 4 ) );
+        List<WorldCupFootballMatch> summaryOfWorldCupFootballMatches = scoreboard.getSummaryOfMatches();
+        assertFalse( summaryOfWorldCupFootballMatches.isEmpty() );
+        assertEquals( new WorldCupFootballMatch( home4, away4 ), summaryOfWorldCupFootballMatches.get( 0 ) );
+        assertEquals( new WorldCupFootballMatch( home2, away2 ), summaryOfWorldCupFootballMatches.get( 1 ) );
+        assertEquals( new WorldCupFootballMatch( home1, away1 ), summaryOfWorldCupFootballMatches.get( 2 ) );
+        assertEquals( new WorldCupFootballMatch( home5, away5 ), summaryOfWorldCupFootballMatches.get( 3 ) );
+        assertEquals( new WorldCupFootballMatch( home3, away3 ), summaryOfWorldCupFootballMatches.get( 4 ) );
     }
 }

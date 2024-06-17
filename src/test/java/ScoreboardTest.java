@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.rayan.scorboard.MatchAlreadyExistsException;
 import org.rayan.scorboard.Scoreboard;
 import org.rayan.scorboard.Team;
 
@@ -34,6 +35,7 @@ public class ScoreboardTest {
         scoreboard.startNewMatch( home, away );
         Team home1 = new Team( "Mexico" );
         Team away1 = new Team( "Canada" );
-        assertThrows( MatchAlreadyExistsException.class, scoreboard.startNewMatch( home1, away1 ));
+        assertThrows( MatchAlreadyExistsException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
     }
+
 }

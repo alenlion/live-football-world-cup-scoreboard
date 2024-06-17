@@ -16,6 +16,13 @@ public class Scoreboard {
     }
 
     public void startNewMatch( Team homeTeam, Team awayTeam ) {
+        Match match = new Match( homeTeam, awayTeam );
+        if(matches.contains(match)) {
+            throw new MatchAlreadyExistsException(
+                    "this match already on progress."
+            );
+        }
+
         matches.add( new Match( homeTeam, awayTeam ) );
     }
 

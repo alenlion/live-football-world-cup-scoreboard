@@ -14,59 +14,59 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 6/17/2024
  */
 @DisplayName( "Test scoreboard operations. " )
-class ScoreboardTest {
+class WorldCupLiveScoreboardTest {
     @DisplayName( value = "start new match" )
     @Test
     void testCreateNewMatch_whenNewMatchStart() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
-        assertFalse( scoreboard.getMatches().isEmpty() );
-        assertEquals( "Mexico", scoreboard.getMatches().get( 0 ).getHomeTeam().getName() );
-        assertEquals( 0, scoreboard.getMatches().get( 0 ).getHomeTeam().getScore() );
-        assertEquals( "Canada", scoreboard.getMatches().get( 0 ).getAwayTeam().getName() );
-        assertEquals( 0, scoreboard.getMatches().get( 0 ).getAwayTeam().getScore() );
+        worldCupLiveScoreboard.startNewMatch( home, away );
+        assertFalse( worldCupLiveScoreboard.getMatches().isEmpty() );
+        assertEquals( "Mexico", worldCupLiveScoreboard.getMatches().get( 0 ).getHomeTeam().getName() );
+        assertEquals( 0, worldCupLiveScoreboard.getMatches().get( 0 ).getHomeTeam().getScore() );
+        assertEquals( "Canada", worldCupLiveScoreboard.getMatches().get( 0 ).getAwayTeam().getName() );
+        assertEquals( 0, worldCupLiveScoreboard.getMatches().get( 0 ).getAwayTeam().getScore() );
     }
 
     @DisplayName( "start duplicate match" )
     @Test
     void testStartNewMatch_whenSameTeamExistOnScoreboard() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
+        worldCupLiveScoreboard.startNewMatch( home, away );
         Team home1 = new Team( "Mexico" );
         Team away1 = new Team( "Canada" );
-        assertThrows( MatchAlreadyExistsException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
+        assertThrows( MatchAlreadyExistsException.class, () -> worldCupLiveScoreboard.startNewMatch( home1, away1 ) );
     }
 
     @DisplayName( "start match with team already playing." )
     @Test
     void testStartNewMatch_whenOneOfTeamAlreadyOnScoreboard() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
+        worldCupLiveScoreboard.startNewMatch( home, away );
         Team home1 = new Team( "Mexico" );
         Team away1 = new Team( "Spain" );
-        assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
+        assertThrows( TeamAlreadyPlayException.class, () -> worldCupLiveScoreboard.startNewMatch( home1, away1 ) );
         Team home2 = new Team( "Spain" );
         Team away2 = new Team( "Canada" );
-        assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home2, away2 ) );
+        assertThrows( TeamAlreadyPlayException.class, () -> worldCupLiveScoreboard.startNewMatch( home2, away2 ) );
     }
 
     @DisplayName( "update match." )
     @Test
     void testUpdateMatchScore() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
+        worldCupLiveScoreboard.startNewMatch( home, away );
         home.setScore( 0 );
         away.setScore( 5 );
-        scoreboard.updateMatch( home, away );
-        WorldCupFootballMatch worldCupFootballMatch = scoreboard.findMatchByHomeAndAwayTeam( home, away );
+        worldCupLiveScoreboard.updateMatch( home, away );
+        WorldCupFootballMatch worldCupFootballMatch = worldCupLiveScoreboard.findMatchByHomeAndAwayTeam( home, away );
         assertEquals( 0, worldCupFootballMatch.getHomeTeam().getScore() );
         assertEquals( 5, worldCupFootballMatch.getAwayTeam().getScore() );
     }
@@ -74,10 +74,10 @@ class ScoreboardTest {
     @DisplayName( "update match with negative score." )
     @Test
     void testUpdateMatch_whenScoreNegative() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
+        worldCupLiveScoreboard.startNewMatch( home, away );
         assertThrows( ScoreNotValidException.class, () -> home.setScore( -1 ) );
         assertThrows( ScoreNotValidException.class, () -> away.setScore( -1 ) );
     }
@@ -85,54 +85,54 @@ class ScoreboardTest {
     @DisplayName( "finish match" )
     @Test
     void testFinishMatch() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
-        scoreboard.finishMatch( home, away );
-        assertTrue( scoreboard.getMatches().isEmpty() );
+        worldCupLiveScoreboard.startNewMatch( home, away );
+        worldCupLiveScoreboard.finishMatch( home, away );
+        assertTrue( worldCupLiveScoreboard.getMatches().isEmpty() );
     }
 
     @DisplayName( "summary of matches in progress ordered by their total score" )
     @Test
     void testSummeryOfMatchOrderByTotalScore() {
-        Scoreboard scoreboard = new Scoreboard();
+        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home1 = new Team( "Mexico" );
         Team away1 = new Team( "Canada" );
-        scoreboard.startNewMatch( home1, away1 );
+        worldCupLiveScoreboard.startNewMatch( home1, away1 );
         home1.setScore( 0 );
         away1.setScore( 5 );
-        scoreboard.updateMatch( home1, away1 );
+        worldCupLiveScoreboard.updateMatch( home1, away1 );
 
         Team home2 = new Team( "Spain" );
         Team away2 = new Team( "Brazil" );
-        scoreboard.startNewMatch( home2, away2 );
+        worldCupLiveScoreboard.startNewMatch( home2, away2 );
         home2.setScore( 10 );
         away2.setScore( 2 );
-        scoreboard.updateMatch( home2, away2 );
+        worldCupLiveScoreboard.updateMatch( home2, away2 );
 
         Team home3 = new Team( "Germany" );
         Team away3 = new Team( "France" );
-        scoreboard.startNewMatch( home3, away3 );
+        worldCupLiveScoreboard.startNewMatch( home3, away3 );
         home3.setScore( 2 );
         away3.setScore( 2 );
-        scoreboard.updateMatch( home3, away3 );
+        worldCupLiveScoreboard.updateMatch( home3, away3 );
 
         Team home4 = new Team( "Uruguay" );
         Team away4 = new Team( "Italy" );
-        scoreboard.startNewMatch( home4, away4 );
+        worldCupLiveScoreboard.startNewMatch( home4, away4 );
         home4.setScore( 6 );
         away4.setScore( 6 );
-        scoreboard.updateMatch( home4, away4 );
+        worldCupLiveScoreboard.updateMatch( home4, away4 );
 
         Team home5 = new Team( "Argentina" );
         Team away5 = new Team( "Australia" );
-        scoreboard.startNewMatch( home5, away5 );
+        worldCupLiveScoreboard.startNewMatch( home5, away5 );
         home5.setScore( 3 );
         away5.setScore( 1 );
-        scoreboard.updateMatch( home5, away5 );
+        worldCupLiveScoreboard.updateMatch( home5, away5 );
 
-        List<WorldCupFootballMatch> summaryOfWorldCupFootballMatches = scoreboard.getSummaryOfMatches();
+        List<WorldCupFootballMatch> summaryOfWorldCupFootballMatches = worldCupLiveScoreboard.getSummaryOfMatches();
         assertFalse( summaryOfWorldCupFootballMatches.isEmpty() );
         assertEquals( new WorldCupFootballMatch( home4, away4 ), summaryOfWorldCupFootballMatches.get( 0 ) );
         assertEquals( new WorldCupFootballMatch( home2, away2 ), summaryOfWorldCupFootballMatches.get( 1 ) );

@@ -13,10 +13,10 @@ import java.util.List;
  * @since 6/17/2024
  */
 
-public class Scoreboard {
+public class WorldCupLiveScoreboard {
     private final List<WorldCupFootballMatch> worldCupFootballMatches;
 
-    public Scoreboard() {
+    public WorldCupLiveScoreboard() {
         this.worldCupFootballMatches = new ArrayList<>();
     }
 

@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.rayan.scorboard.MatchAlreadyExistsException;
 import org.rayan.scorboard.Scoreboard;
 import org.rayan.scorboard.Team;
+import org.rayan.scorboard.TeamAlreadyPlayException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Rayan Aksu
  * @since 6/17/2024
  */
-
-public class ScoreboardTest {
+class ScoreboardTest {
     @DisplayName( value = "start new match" )
     @Test
     void testCreateNewMatch_whenNewMatchStart() {
@@ -38,6 +38,7 @@ public class ScoreboardTest {
         assertThrows( MatchAlreadyExistsException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
     }
 
+    @DisplayName( "start match with team already playing." )
     @Test
     void testStartNewMatch_whenOneOfTeamAlreadyOnScoreboard(){
         Scoreboard scoreboard = new Scoreboard();
@@ -46,10 +47,9 @@ public class ScoreboardTest {
         scoreboard.startNewMatch( home, away );
         Team home1 = new Team( "Mexico" );
         Team away1 = new Team( "Spain" );
-        assertThrows( MatchAlreadyExistsException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
-        scoreboard.startNewMatch( home, away );
+        assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
         Team home2 = new Team( "Spain" );
         Team away2 = new Team( "Canada" );
-        assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
+        assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home2, away2 ) );
     }
 }

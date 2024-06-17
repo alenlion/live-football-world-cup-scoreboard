@@ -66,6 +66,16 @@ class ScoreboardTest {
         assertEquals( 5, match.getAwayTeam().getScore() );
     }
 
+    @DisplayName( "update match with negative score." )
+    @Test
+    void testUpdateMatch_whenScoreNegative() {
+        Scoreboard scoreboard = new Scoreboard();
+        Team home = new Team( "Mexico" );
+        Team away = new Team( "Canada" );
+        scoreboard.startNewMatch( home, away );
+        assertThrows( ScoreNotValidException.class, () -> home.setScore( -1 ) );
+        assertThrows( ScoreNotValidException.class, () -> away.setScore( -1 ) );
+    }
     @DisplayName( "finish match" )
     @Test
     void testFinishMatch() {
@@ -77,15 +87,5 @@ class ScoreboardTest {
         assertTrue( scoreboard.getMatches().isEmpty() );
     }
 
-    @DisplayName( "update match with negative score." )
-    @Test
-    void testUpdateMatch_whenScoreNegative() {
-        Scoreboard scoreboard = new Scoreboard();
-        Team home = new Team( "Mexico" );
-        Team away = new Team( "Canada" );
-        scoreboard.startNewMatch( home, away );
-        assertThrows( ScoreNotValidException.class, () -> home.setScore( -1 ) );
-        assertThrows( ScoreNotValidException.class, () -> away.setScore( -1 ) );
-    }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @since 6/17/2024
  */
 
-public class WorldCupLiveScoreboard {
+public class WorldCupLiveScoreboard implements Scoreboard {
     private final List<WorldCupFootballMatch> worldCupFootballMatches;
 
     public WorldCupLiveScoreboard() {

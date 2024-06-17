@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Rayan Aksu
  * @since 6/17/2024
  */
+@DisplayName( "Test scoreboard operations. " )
 class ScoreboardTest {
     @DisplayName( value = "start new match" )
     @Test

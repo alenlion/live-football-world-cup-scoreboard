@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.rayan.scorboard.*;
+import org.rayan.scorboard.exceptions.MatchAlreadyExistsException;
+import org.rayan.scorboard.exceptions.ScoreNotValidException;
+import org.rayan.scorboard.exceptions.TeamAlreadyPlayException;
 
 import java.util.List;
 

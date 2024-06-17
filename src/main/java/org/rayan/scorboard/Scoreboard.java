@@ -1,5 +1,9 @@
 package org.rayan.scorboard;
 
+import org.rayan.scorboard.exceptions.MatchAlreadyExistsException;
+import org.rayan.scorboard.exceptions.MatchNotInScoreboardException;
+import org.rayan.scorboard.exceptions.TeamAlreadyPlayException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

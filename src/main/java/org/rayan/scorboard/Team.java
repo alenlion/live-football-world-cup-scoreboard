@@ -1,5 +1,7 @@
 package org.rayan.scorboard;
 
+import org.rayan.scorboard.exceptions.ScoreNotValidException;
+
 /**
  * @author Rayan Aksu
  * @since 6/17/2024

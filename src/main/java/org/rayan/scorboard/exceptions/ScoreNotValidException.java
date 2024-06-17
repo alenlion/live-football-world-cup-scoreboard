@@ -1,4 +1,4 @@
-package org.rayan.scorboard;
+package org.rayan.scorboard.exceptions;
 
 /**
  * @author Rayan Aksu

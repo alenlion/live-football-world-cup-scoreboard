@@ -1,9 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.rayan.scorboard.MatchAlreadyExistsException;
-import org.rayan.scorboard.Scoreboard;
-import org.rayan.scorboard.Team;
-import org.rayan.scorboard.TeamAlreadyPlayException;
+import org.rayan.scorboard.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +38,7 @@ class ScoreboardTest {
 
     @DisplayName( "start match with team already playing." )
     @Test
-    void testStartNewMatch_whenOneOfTeamAlreadyOnScoreboard(){
+    void testStartNewMatch_whenOneOfTeamAlreadyOnScoreboard() {
         Scoreboard scoreboard = new Scoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
@@ -52,5 +49,20 @@ class ScoreboardTest {
         Team home2 = new Team( "Spain" );
         Team away2 = new Team( "Canada" );
         assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home2, away2 ) );
+    }
+
+    @DisplayName( "update match." )
+    @Test
+    void testUpdateMatchScore() {
+        Scoreboard scoreboard = new Scoreboard();
+        Team home = new Team( "Mexico" );
+        Team away = new Team( "Canada" );
+        scoreboard.startNewMatch( home, away );
+        home.setScore( 0 );
+        away.setScore( 5 );
+        scoreboard.updateMatch( home, away );
+        Match match = scoreboard.getmatch( home, away );
+        assertEquals( 0, match.getHomeTeam().getScore() );
+        assertEquals( 5, match.getAwayTeam().getScore() );
     }
 }

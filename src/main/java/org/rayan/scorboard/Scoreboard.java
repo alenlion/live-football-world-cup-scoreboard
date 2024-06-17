@@ -15,13 +15,31 @@ public class Scoreboard {
         this.matches = new ArrayList<>();
     }
 
-    public void startNewMatch( Team homeTeam, Team awayTeam ) {
+    private void checkTeamValidToPlay( Team homeTeam, Team awayTeam ) {
         Match match = new Match( homeTeam, awayTeam );
-        if(matches.contains(match)) {
+        if ( matches.contains( match ) ) {
             throw new MatchAlreadyExistsException(
-                   "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") this match already on progress."
+                    "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") this match already on progress."
             );
         }
+        for ( Match m : matches ) {
+            if ( m.getHomeTeam().equals( homeTeam ) ||
+                    m.getHomeTeam().equals( awayTeam ) ) {
+                throw new TeamAlreadyPlayException(
+                        m.getHomeTeam().getName() + "team can not play in mor than one match at the same time."
+                );
+            }
+            if ( m.getAwayTeam().equals( homeTeam ) ||
+                    m.getAwayTeam().equals( awayTeam ) ) {
+                throw new TeamAlreadyPlayException(
+                        m.getAwayTeam().getName() + "team can not play in mor than one match at the same time."
+                );
+            }
+        }
+    }
+
+    public void startNewMatch( Team homeTeam, Team awayTeam ) {
+        checkTeamValidToPlay( homeTeam, awayTeam );
 
         matches.add( new Match( homeTeam, awayTeam ) );
     }

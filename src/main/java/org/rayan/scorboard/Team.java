@@ -25,5 +25,17 @@ public class Team {
     public void setScore( int score ) {
         this.score = score;
     }
-    
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( !( o instanceof Team team ) ) return false;
+
+        return name.equals( team.name );
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

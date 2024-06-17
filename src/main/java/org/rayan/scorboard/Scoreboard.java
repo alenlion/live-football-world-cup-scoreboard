@@ -19,7 +19,7 @@ public class Scoreboard {
         Match match = new Match( homeTeam, awayTeam );
         if(matches.contains(match)) {
             throw new MatchAlreadyExistsException(
-                    "this match already on progress."
+                   "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") this match already on progress."
             );
         }
 

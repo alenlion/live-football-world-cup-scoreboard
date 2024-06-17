@@ -54,6 +54,10 @@ public class Scoreboard {
         match.getAwayTeam().setScore( awayTeam.getScore() );
     }
 
+    public void finishMatch( Team homeTeam, Team awayTeam ) {
+        matches.removeIf( match -> match.getHomeTeam().equals( homeTeam ) && match.getAwayTeam().equals( awayTeam ) );
+    }
+
     public Match findMatchByHomeAndAwayTeam( Team homeTeam, Team awayTeam ) {
         for ( Match match : matches ) {
             if ( match.getHomeTeam().equals( homeTeam ) && match.getAwayTeam().equals( awayTeam ) ) {

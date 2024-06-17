@@ -12,6 +12,7 @@ public class Team {
         this.name = name;
         this.score = 0;
     }
+
     public String getName() {
         return name;
     }
@@ -23,6 +24,10 @@ public class Team {
     }
 
     public void setScore( int score ) {
+        if ( score < 0 ) {
+            throw new ScoreNotValidException(
+                   this.getName() +  " team score can not be negative values." );
+        }
         this.score = score;
     }
 

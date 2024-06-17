@@ -47,4 +47,19 @@ public class Scoreboard {
     public List<Match> getMatches() {
         return matches;
     }
+
+    public void updateMatch( Team homeTeam, Team awayTeam ) {
+        Match match = findMatchByHomeAndAwayTeam( homeTeam, awayTeam );
+        match.getHomeTeam().setScore( homeTeam.getScore() );
+        match.getAwayTeam().setScore( awayTeam.getScore() );
+    }
+
+    public Match findMatchByHomeAndAwayTeam( Team homeTeam, Team awayTeam ) {
+        for ( Match match : matches ) {
+            if ( match.getHomeTeam().equals( homeTeam ) && match.getAwayTeam().equals( awayTeam ) ) {
+                return match;
+            }
+        }
+        throw new MatchNotInScoreboardException( "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") match not found." );
+    }
 }

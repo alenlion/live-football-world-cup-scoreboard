@@ -1,6 +1,7 @@
 package org.rayan.scorboard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,5 +66,11 @@ public class Scoreboard {
             }
         }
         throw new MatchNotInScoreboardException( "( " + homeTeam.getName() + "-" + awayTeam.getName() + ") match not found." );
+    }
+
+    public List<Match> getSummaryOfMatches() {
+        List<Match> summaryOfMatches = new ArrayList<>( matches.stream().sorted().toList() );
+        Collections.reverse( summaryOfMatches );
+        return summaryOfMatches;
     }
 }

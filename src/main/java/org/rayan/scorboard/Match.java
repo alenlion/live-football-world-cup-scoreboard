@@ -1,5 +1,6 @@
 package org.rayan.scorboard;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -7,11 +8,12 @@ import java.util.Objects;
  * @since 6/17/2024
  */
 
-public class Match {
+public class Match implements Comparable<Match> {
 
     public Match( Team homeTeam, Team awayTeam ) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.matchStartTime = LocalDateTime.now();
     }
 
     public Team getHomeTeam() {
@@ -33,6 +35,8 @@ public class Match {
     private Team homeTeam;
     private Team awayTeam;
 
+    private final LocalDateTime matchStartTime;
+
     @Override
     public boolean equals( Object o ) {
         if ( this == o ) return true;
@@ -46,5 +50,16 @@ public class Match {
         int result = homeTeam.hashCode();
         result = 31 * result + awayTeam.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo( Match o ) {
+        int thisTotalScore = this.homeTeam.getScore() + this.awayTeam.getScore();
+        int otherTotalScore = o.getHomeTeam().getScore() + o.getAwayTeam().getScore();
+        if (thisTotalScore != otherTotalScore) {
+            return Integer.compare(thisTotalScore, otherTotalScore);
+        } else {
+            return this.matchStartTime.compareTo(o.matchStartTime);
+        }
     }
 }

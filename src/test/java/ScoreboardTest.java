@@ -136,8 +136,5 @@ class ScoreboardTest {
         assertEquals( new Match( home1, away1 ), summaryOfMatches.get( 2 ) );
         assertEquals( new Match( home5, away5 ), summaryOfMatches.get( 3 ) );
         assertEquals( new Match( home3, away3 ), summaryOfMatches.get( 4 ) );
-
-
     }
-
 }

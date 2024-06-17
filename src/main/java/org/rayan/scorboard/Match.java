@@ -6,27 +6,29 @@ package org.rayan.scorboard;
  */
 
 public class Match {
-    private String homeTeam;
-    private String awayTeam;
 
-    public String getHomeTeam() {
+    public Match( Team homeTeam, Team awayTeam ) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+    }
+
+    public Team getHomeTeam() {
         return homeTeam;
     }
 
-    public void setHomeTeam( String homeTeam ) {
+    public void setHomeTeam( Team homeTeam ) {
         this.homeTeam = homeTeam;
     }
 
-    public String getAwayTeam() {
+    public Team getAwayTeam() {
         return awayTeam;
     }
 
-    public void setAwayTeam( String awayTeam ) {
+    public void setAwayTeam( Team awayTeam ) {
         this.awayTeam = awayTeam;
     }
 
-    public Match( String homeTeam, String awayTeam) {
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-    }
+    private Team homeTeam;
+    private Team awayTeam;
+
 }

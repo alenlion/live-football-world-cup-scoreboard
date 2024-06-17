@@ -74,6 +74,6 @@ class ScoreboardTest {
         Team away = new Team( "Canada" );
         scoreboard.startNewMatch( home, away );
         scoreboard.finishMatch( home, away );
-        assertFalse( scoreboard.getMatches().isEmpty() );
+        assertTrue( scoreboard.getMatches().isEmpty() );
     }
 }

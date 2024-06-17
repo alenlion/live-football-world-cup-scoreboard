@@ -61,7 +61,7 @@ class ScoreboardTest {
         home.setScore( 0 );
         away.setScore( 5 );
         scoreboard.updateMatch( home, away );
-        Match match = scoreboard.getmatch( home, away );
+        Match match = scoreboard.findMatchByHomeAndAwayTeam( home, away );
         assertEquals( 0, match.getHomeTeam().getScore() );
         assertEquals( 5, match.getAwayTeam().getScore() );
     }

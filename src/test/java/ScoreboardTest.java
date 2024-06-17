@@ -38,4 +38,18 @@ public class ScoreboardTest {
         assertThrows( MatchAlreadyExistsException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
     }
 
+    @Test
+    void testStartNewMatch_whenOneOfTeamAlreadyOnScoreboard(){
+        Scoreboard scoreboard = new Scoreboard();
+        Team home = new Team( "Mexico" );
+        Team away = new Team( "Canada" );
+        scoreboard.startNewMatch( home, away );
+        Team home1 = new Team( "Mexico" );
+        Team away1 = new Team( "Spain" );
+        assertThrows( MatchAlreadyExistsException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
+        scoreboard.startNewMatch( home, away );
+        Team home2 = new Team( "Spain" );
+        Team away2 = new Team( "Canada" );
+        assertThrows( TeamAlreadyPlayException.class, () -> scoreboard.startNewMatch( home1, away1 ) );
+    }
 }

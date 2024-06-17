@@ -1,6 +1,9 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.rayan.scorboard.*;
+import org.rayan.scorboard.Team;
+import org.rayan.scorboard.WorldCupFootballMatch;
+import org.rayan.scorboard.WorldCupLiveScoreboard;
 import org.rayan.scorboard.exceptions.MatchAlreadyExistsException;
 import org.rayan.scorboard.exceptions.ScoreNotValidException;
 import org.rayan.scorboard.exceptions.TeamAlreadyPlayException;
@@ -15,10 +18,15 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @DisplayName( "Test scoreboard operations. " )
 class WorldCupLiveScoreboardTest {
+   private WorldCupLiveScoreboard worldCupLiveScoreboard;
+    @BeforeEach
+    void setUp() {
+        worldCupLiveScoreboard = new WorldCupLiveScoreboard();
+    }
+
     @DisplayName( value = "start new match" )
     @Test
     void testCreateNewMatch_whenNewMatchStart() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home, away );
@@ -32,7 +40,6 @@ class WorldCupLiveScoreboardTest {
     @DisplayName( "start duplicate match" )
     @Test
     void testStartNewMatch_whenSameTeamExistOnScoreboard() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home, away );
@@ -44,7 +51,6 @@ class WorldCupLiveScoreboardTest {
     @DisplayName( "start match with team already playing." )
     @Test
     void testStartNewMatch_whenOneOfTeamAlreadyOnScoreboard() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home, away );
@@ -59,7 +65,6 @@ class WorldCupLiveScoreboardTest {
     @DisplayName( "update match." )
     @Test
     void testUpdateMatchScore() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home, away );
@@ -74,7 +79,6 @@ class WorldCupLiveScoreboardTest {
     @DisplayName( "update match with negative score." )
     @Test
     void testUpdateMatch_whenScoreNegative() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home, away );
@@ -85,7 +89,6 @@ class WorldCupLiveScoreboardTest {
     @DisplayName( "finish match" )
     @Test
     void testFinishMatch() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home = new Team( "Mexico" );
         Team away = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home, away );
@@ -96,7 +99,6 @@ class WorldCupLiveScoreboardTest {
     @DisplayName( "summary of matches in progress ordered by their total score" )
     @Test
     void testSummeryOfMatchOrderByTotalScore() {
-        WorldCupLiveScoreboard worldCupLiveScoreboard = new WorldCupLiveScoreboard();
         Team home1 = new Team( "Mexico" );
         Team away1 = new Team( "Canada" );
         worldCupLiveScoreboard.startNewMatch( home1, away1 );

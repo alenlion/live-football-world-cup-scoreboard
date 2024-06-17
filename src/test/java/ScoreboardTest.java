@@ -25,4 +25,15 @@ public class ScoreboardTest {
         assertEquals( 0, scoreboard.getMatches().get( 0 ).getAwayTeam().getScore() );
     }
 
+    @DisplayName( "start duplicate match" )
+    @Test
+    void testStartNewMatch_whenSameTeamExistOnScoreboard() {
+        Scoreboard scoreboard = new Scoreboard();
+        Team home = new Team( "Mexico" );
+        Team away = new Team( "Canada" );
+        scoreboard.startNewMatch( home, away );
+        Team home1 = new Team( "Mexico" );
+        Team away1 = new Team( "Canada" );
+        assertThrows( MatchAlreadyExistsException.class, scoreboard.startNewMatch( home1, away1 ));
+    }
 }
